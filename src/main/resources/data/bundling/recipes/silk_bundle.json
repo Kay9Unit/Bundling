@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SIS",
+    "I I",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "bundling:silk"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "bundling:silk_bundle"
+  }
+}

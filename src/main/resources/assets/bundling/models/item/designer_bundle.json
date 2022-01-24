@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bundling:item/designer_bundle"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "bundling:filled": 0.0000001
+      },
+      "model": "bundling:item/designer_bundle_filled"
+    }
+  ]
+}

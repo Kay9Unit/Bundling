@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="GNU GPLv3"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+[[mods]]
+modId="bundling"
+version="${file.jarVersion}"
+displayName="Bundling"
+#logoFile="examplemod.png"
+#credits="Thanks for this example mod goes to Java"
+authors="Kay9"
+description='''
+Sexy new bundles to carry and flash about.
+Your not like the other girls. You can carry more random garbage in that bad boy.
+'''
+[[dependencies.bundling]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.bundling]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"
