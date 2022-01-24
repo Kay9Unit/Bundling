@@ -11,7 +11,7 @@ displayName="Bundling"
 authors="Kay9"
 description='''
 Sexy new bundles to carry and flash about.
-Your not like the other girls. You can carry more random garbage in that bad boy.
+You're not like the other girls. You can carry more random garbage in that bad boy.
 '''
 [[dependencies.bundling]]
     modId="forge"
