@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "io.github.kay9.bundling.mixins",
-  "refmap": "bundling.mixins.refmap.json",
+  "refmap": "mixins.bundling.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BundleItemMixin",

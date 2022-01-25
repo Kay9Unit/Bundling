@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[39,)"
 license="GNU GPLv3"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/Kay9Unit/Bundling/issues"
 [[mods]]
 modId="bundling"
 version="${file.jarVersion}"
