@@ -8,10 +8,12 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import org.lwjgl.system.CallbackI;
+import net.minecraft.world.item.BundleItem;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ClientBundleTooltip.class)
 public class ClientBundleTooltipMixin
@@ -20,11 +22,9 @@ public class ClientBundleTooltipMixin
             constant = @Constant(intValue = 64))
     private int bundling_overrideWeightLimits(int original)
     {
-        return ((BundleItemAccess) ((AbstractContainerScreen<?>) Minecraft.getInstance().screen)
-                .getSlotUnderMouse()
-                .getItem()
-                .getItem())
-                .getMaxWeight();
+        var slot = ((AbstractContainerScreen<?>) Minecraft.getInstance().screen).getSlotUnderMouse();
+        if (slot != null && slot.getItem().getItem() instanceof BundleItemAccess b) return b.getMaxWeight();
+        return 64;
     }
 
 //    @Inject(method = "renderSlot(IIIZLnet/minecraft/client/gui/Font;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/entity/ItemRenderer;I)V",
@@ -43,7 +43,9 @@ public class ClientBundleTooltipMixin
     @ModifyVariable(method = "renderSlot", at = @At(value = "LOAD", ordinal = 3), ordinal = 2, argsOnly = true)
     private int bundling_overrideHighlightIndex(int original, int pX, int pY, int pItemIndex, boolean pIsBundleFull, Font pFont, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset)
     {
-        var index = BundlingItem.getIndex(((AbstractContainerScreen<?>) Minecraft.getInstance().screen).getSlotUnderMouse().getItem());
-        return pItemIndex == index? 0 : -1;
+        var slot = ((AbstractContainerScreen<?>) Minecraft.getInstance().screen).getSlotUnderMouse();
+        if (slot != null && slot.getItem().getItem() instanceof BundleItem)
+            return pItemIndex == BundlingItem.getIndex(slot.getItem())? 0 : -1;
+        return original;
     }
 }
