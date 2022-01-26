@@ -6,7 +6,6 @@ import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -46,10 +45,13 @@ public class BundleItemMixin implements BundleItemAccess
         return BundlingItem.getIndex(stack);
     }
 
+    /**
+     * Ensures the index pointer is at or below the item list size
+     */
     @Inject(method = "removeOne(Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;", at = @At("TAIL"))
     private static void bundling_resetIndex(ItemStack i, CallbackInfoReturnable<Optional<ItemStack>> cir)
     {
-        BundlingItem.setIndex(i, 0);
+        BundlingItem.setIndex(i, BundlingItem.getIndex(i));
     }
 
     @Redirect(method = {

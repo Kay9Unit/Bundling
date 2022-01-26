@@ -2,6 +2,7 @@ package io.github.kay9.bundling;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -35,9 +36,14 @@ public class CycleBundleIndexPacket
         {
             var player = ctx.get().getSender();
             var stack = player.getInventory().getItem(slotIndex);
-            if (stack.getItem() instanceof BundleItem) BundlingItem.cycleIndex(stack, amount);
-            else Bundling.LOG.error("Sent packet to cycle bundle but wrong item was found: '{}'",  stack);
+            handle(stack, amount);
         });
         ctx.get().setPacketHandled(true);
+    }
+
+    public static void handle(ItemStack stack, int amount)
+    {
+        if (stack.getItem() instanceof BundleItem) BundlingItem.cycleIndex(stack, amount);
+        else Bundling.LOG.error("Sent packet to cycle bundle but wrong item was found: '{}'",  stack);
     }
 }

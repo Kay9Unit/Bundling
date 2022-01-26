@@ -27,19 +27,6 @@ public class ClientBundleTooltipMixin
         return 64;
     }
 
-//    @Inject(method = "renderSlot(IIIZLnet/minecraft/client/gui/Font;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/entity/ItemRenderer;I)V",
-//            cancellable = true,
-//            at = @At(value = "INVOKE",
-//                    target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V",
-//                    shift = At.Shift.AFTER))
-//    private void bundling_overrideHighlightIndex(int pX, int pY, int pItemIndex, boolean pIsBundleFull, Font pFont, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset, CallbackInfo ci)
-//    {
-//        ci.cancel();
-//        int index = BundlingItem.getIndex(((AbstractContainerScreen<?>) Minecraft.getInstance().screen).getSlotUnderMouse().getItem());
-//        if (pItemIndex == index)
-//            AbstractContainerScreen.renderSlotHighlight(pPoseStack, pX + 1, pY + 1, pBlitOffset);
-//    }
-
     @ModifyVariable(method = "renderSlot", at = @At(value = "LOAD", ordinal = 3), ordinal = 2, argsOnly = true)
     private int bundling_overrideHighlightIndex(int original, int pX, int pY, int pItemIndex, boolean pIsBundleFull, Font pFont, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset)
     {

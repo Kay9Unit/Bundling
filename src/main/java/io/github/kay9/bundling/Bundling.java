@@ -49,7 +49,7 @@ public class Bundling
         return new ResourceLocation(MOD_ID, path);
     }
 
-    public static void onMouseScroll(ScreenEvent.MouseScrollEvent evt)
+    private static void onMouseScroll(ScreenEvent.MouseScrollEvent evt)
     {
         if (!Screen.hasShiftDown() && evt.getScreen() instanceof AbstractContainerScreen<?> screen)
         {
@@ -60,7 +60,9 @@ public class Bundling
                 if (stack.getItem() instanceof BundleItem)
                 {
                     evt.setCanceled(true);
-                    NETWORK.sendToServer(new CycleBundleIndexPacket((int) -evt.getScrollDelta(), mouseOver.getSlotIndex()));
+                    var byAmount = (int) -evt.getScrollDelta();
+                    NETWORK.sendToServer(new CycleBundleIndexPacket(byAmount, mouseOver.getSlotIndex()));
+                    CycleBundleIndexPacket.handle(stack, byAmount); // do it on the client to for snappiness.
                 }
             }
         }
